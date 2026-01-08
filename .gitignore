@@ -1,0 +1,19 @@
+# Raw data (never publish)
+data/raw/
+data/raw/**
+
+# Local databases (never publish)
+*.sqlite
+*.db
+*.sqlite3
+
+# OS junk
+.DS_Store
+
+# Power BI temp files
+*.pbix~
+*.pbit~
+
+data/public/provider_spend_public.csv
+
+
