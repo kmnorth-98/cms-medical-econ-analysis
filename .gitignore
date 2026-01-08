@@ -16,4 +16,8 @@ data/raw/**
 
 data/public/provider_spend_public.csv
 
+# SQLite queries with licensing resctrictions (never publish)
+sql/local_only
+sql/local_only**
+
 

@@ -21,9 +21,8 @@ Identify cost drivers and variation patterns relevant to medical economics work:
 ## Key Outputs (in `data/public/`)
 - `physician_service_public.csv` — year + anonymized service-level utilization and spend
 - `provider_concentration_public.csv` — downsampled concentration curve by year
-- `provider_top500_public.csv` — top 500 providers by allowed spend (optional)
 - `geo_state_2023_public.csv` — 2023 state snapshot (standardized per-capita)
-- `geo_state_trend_public.csv` — 2007–2023 state trend (standardized per-capita)
+- `geo_state_trend_public.csv` — 2014–2023 state trend (standardized per-capita)
 
 ## Key Findings
 - **Total allowed spend increased from $113.0B (2022) to $118.5B (2023)** with service volume rising from **2.52B to 2.65B** services.
