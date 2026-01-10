@@ -1,23 +1,62 @@
-# Raw data (never publish)
-data/raw/
-data/raw/**
+# =========================
+# Whitelist-only GitHub repo
+# =========================
 
-# Local databases (never publish)
-*.sqlite
-*.db
-*.sqlite3
+# Ignore everything by default
+*
 
-# OS junk
+# Always keep git config files
+!.gitignore
+!README.md
+
+# -------------------------
+# Allow ONLY these folders/files
+# -------------------------
+
+# data/public
+!data/
+!data/public/
+!data/public/**
+
+# docs/Dictionaries
+!docs/
+!docs/Dictionaries/
+!docs/Dictionaries/**
+
+# docs/executive_summary.md
+!docs/executive_summary.md
+
+# docs/deliverables
+!docs/deliverables/
+!docs/deliverables/**
+# (Optional but common) allow a deliverables README if you add one later:
+!docs/deliverables/README.md
+
+# sql/public
+!sql/
+!sql/public/
+!sql/public/**
+
+# -------------------------
+# Keep OS junk out
+# -------------------------
 .DS_Store
-
-# Power BI temp files
+Thumbs.db
+*.pbix
+*.pbit
 *.pbix~
 *.pbit~
 
-data/public/provider_spend_public.csv
-
-# SQLite queries with licensing resctrictions (never publish)
-sql/local_only
-sql/local_only**
-
+# -------------------------
+# Ensure local-only areas stay local (explicit, for clarity)
+# -------------------------
+data/raw/
+data/raw/**
+sql/local_only/
+sql/local_only/**
+docs/local_only/
+docs/local_only/**
+*.sqlite
+*.sqlite3
+*.db
 

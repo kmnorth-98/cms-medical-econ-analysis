@@ -1,47 +1,81 @@
 # CMS Medicare Medical Economics Analysis (2022–2023) + Geographic Variation (2014–2023)
 
-Portfolio project analyzing Medicare physician service costs, utilization, provider spend concentration, and geographic variation using CMS Public Use Files (PUFs). Public artifacts exclude CPT/HCPCS codes and publish only aggregated, anonymized outputs.
+Portfolio project analyzing Medicare physician service utilization and spend, provider spend concentration, and geographic variation using CMS Public Use Files (PUFs). This repository publishes **public-safe, aggregated outputs** and excludes raw CMS files and any CPT/HCPCS content.
 
-## Objective
-Identify cost drivers and variation patterns relevant to medical economics work: utilization, spend concentration, and geography-driven differences in per-capita spending.
+**Interactive Tableau Story (Public):**  
+https://public.tableau.com/views/Medicare_Econ_Workbook/Story1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
 
-## Data
-- **CMS Medicare Physician & Other Practitioners PUF** (2022, 2023)
-- **CMS Medicare Geographic Variation PUF** (2014–2023)
+**Portfolio write-up page:**  
+https://www.kaileynortham.com/portfolio-collections/my-portfolio/cms-medicare-spending-analysis
 
-> Note: Raw files are not included in this repo due to size and licensing constraints.
+---
 
-## Method (Workflow)
-1. Downloaded CMS PUFs locally and stored raw files outside the public repo.
-2. Imported CSVs into SQLite (local database).
-3. Built a cleaned metric layer (casts, totals derived from averages × service counts).
-4. Created public-safe export tables (no CPT/HCPCS fields; service identifiers anonymized to `Service_###`).
-5. Exported analysis-ready CSVs for visualization (Power BI).
+## What this analysis answers
+**Medical economics questions (high level):**
+- How did Medicare physician-service allowed spend, payments, and service volume change from **2022 → 2023**?
+- How concentrated is spend across providers (e.g., what share is captured by the top 1%, 5%, 10%)?
+- Are “cost drivers” primarily **service mix** or **provider concentration**?
+- How large is geographic variation in standardized per-capita spend, and how do state trends evolve over time?
 
-## Key Outputs (in `data/public/`)
-- `physician_service_public.csv` — year + anonymized service-level utilization and spend
-- `provider_concentration_public.csv` — downsampled concentration curve by year
-- `geo_state_2023_public.csv` — 2023 state snapshot (standardized per-capita)
-- `geo_state_trend_public.csv` — 2014–2023 state trend (standardized per-capita)
+---
 
-## Key Findings
-- **Total allowed spend increased from $113.0B (2022) to $118.5B (2023)** with service volume rising from **2.52B to 2.65B** services.
+## Key findings (from published Tableau outputs)
+- **Allowed spend increased +4.8%** from 2022 to 2023 (≈ **$113B → $118B**).
+- **Service volume increased** (≈ **2.52B → 2.65B** services).
 - **Provider spend is highly concentrated and increased YoY**:
-  - 2022: top 1% = **28.3%**, top 5% = **48.8%**, top 10% = **60.9%**
-  - 2023: top 1% = **30.5%**, top 5% = **50.7%**, top 10% = **62.3%**
-- **Service concentration is lower than provider concentration** (top 10 services share of allowed):
-  - 2022: **31.1%**
-  - 2023: **29.7%**
-- **Geographic variation remains large even after standardization**:
-  - 2023 standardized per-capita range spread ≈ **$15,900** across states (highest: NV ≈ $15,886; TX ≈ $15,198; CA ≈ $14,946).
+  - 2022: top 1% ≈ **28.3%**, top 5% ≈ **48.8%**, top 10% ≈ **60.9%**
+  - 2023: top 1% ≈ **30.5%**, top 5% ≈ **50.7%**, top 10% ≈ **62.3%**
+- **Service concentration is materially lower** (top 10 anonymized services share of allowed):
+  - 2022: ≈ **31.1%**
+  - 2023: ≈ **29.7%**
+- **Geographic variation remains large** even after standardization (state-level per-capita spread remains wide across the 2014–2023 period, with a 2023 map view included in the story).
 
-## Reproducibility
-This repo includes **public-safe exports and SQL queries**. The full pipeline (including raw imports and CPT/HCPCS code fields) is intentionally kept local.
+---
 
-To reproduce the published analysis:
-1. Use the CSVs in `data/public/` to rebuild visuals.
-2. Use `sql/public/` queries to compute rankings and concentration outputs.
+## Repo navigation (start here)
+### Deliverables
+- **Deliverables folder:** [`docs/deliverables/`](docs/deliverables/)  
+  Includes the **Tableau Story PDF**, a **downloadable Tableau workbook**, and the **Project Write-Up**.
 
-## Licensing / Compliance Note
-Raw physician PUF files and any CPT/HCPCS code fields remain local and are excluded from this repository. Public artifacts use aggregated metrics and anonymized service identifiers (`Service_###`) and do not distribute CPT/HCPCS content.
+### Documentation
+- **Executive Summary:** [`docs/executive_summary.md`](docs/executive_summary.md)  
+- **Dataset Dictionaries:** [`docs/Dictionaries/`](docs/Dictionaries/)
+
+### Public data exports (safe to publish)
+- **Public datasets:** [`data/public/`](data/public/)  
+  These are the analysis-ready CSVs used for Tableau. They are aggregated and do not include CPT/HCPCS fields.
+
+### SQL used to generate exports (safe to publish)
+- **Public SQL queries:** [`sql/public/`](sql/public/)  
+  Queries for table creation and exported metric layers.
+
+---
+
+## Methods (workflow summary)
+1. Downloaded CMS PUFs locally and stored raw files outside the public repo.
+2. Loaded raw files into a local SQLite database.
+3. Transformed raw fields into a normalized metric layer (casts, derived totals, standardization fields).
+4. Generated **public-safe export tables**:
+   - Removed/avoided CPT/HCPCS content
+   - Aggregated outputs
+   - Generalized service identifiers to anonymized labels (e.g., `SERVICE_001`)
+5. Exported CSVs to `data/public/` and built a Tableau Story for interpretation.
+
+---
+
+## Compliance / licensing note (important)
+This repo intentionally excludes raw CMS physician PUF files and any CPT/HCPCS code fields. Public artifacts are aggregated and anonymized (e.g., `SERVICE_###`) to comply with CPT licensing restrictions and to avoid publishing restricted code content.
+
+---
+
+## Tools
+- SQLite (local ETL + metric layer)
+- SQL (export queries in `sql/public/`)
+- Tableau (Story + workbook)
+
+---
+
+## Contact
+If you’d like to talk through the analysis, methodology, or the repo structure:  
+**Kailey Northam** — https://www.kaileynortham.com
 

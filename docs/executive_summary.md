@@ -1,31 +1,62 @@
-# CMS Medicare Cost & Utilization Analysis (2022–2023)
-## with Geographic Variation (2014–2023)
+# Executive Summary — CMS Medicare Medical Economics Analysis
+## Physician Services (2022–2023) + Geographic Variation (2014–2023)
 
-### Objective
-Analyze Medicare physician service spending, utilization, provider spend concentration, and geographic variation using CMS Public Use Files (PUFs) to identify cost drivers and opportunities for targeted intervention.
+**Related links**
+- Dataset dictionaries: [`../docs/Dictionaries/`](Dictionaries/)
+- Public datasets (CSV exports): [`../data/public/`](../data/public/)
 
-### Data
-- CMS Medicare Physician & Other Practitioners PUF (2022, 2023)
-- CMS Medicare Geographic Variation PUF (2014–2023)
+---
 
-### Method
-Raw CMS files were loaded into SQLite and transformed into a normalized metric layer. Average payment fields were converted into total spend measures using service counts. Provider- and service-level concentration metrics were computed, and geographic variation was evaluated using standardized per-capita spending. Public outputs exclude CPT/HCPCS codes and use anonymized service identifiers.
+## Objective
+Assess Medicare physician-service spending and utilization patterns (2022–2023), quantify **provider spend concentration**, and contextualize results using **state-level geographic variation trends** (2014–2023). The goal is to surface cost drivers and patterns relevant to medical economics: spend growth, concentration risk, and region-driven differences.
 
-### Key Findings
-- Total allowed spending increased from **$113.0B (2022) to $118.5B (2023)** while service volume increased from **2.52B to 2.65B** services.
-- Provider spend concentration is high and increased YoY. In 2023, the top **1%** of providers accounted for **~30.5%** of allowed spending; the top **10%** accounted for **~62.3%**.
-- Service-level concentration was lower: the top 10 services represented **~29.7%** of allowed spending in 2023 (vs. **~31.1%** in 2022).
-- Geographic variation remained large even after standardization: 2023 standardized per-capita spending ranged by approximately **$15,900** across states.
+---
 
-### Implications
-- Concentration patterns support provider-focused review (outliers), utilization management targeting, and network strategy.
-- Lower service concentration suggests provider behavior is a stronger cost driver than service mix alone.
-- Persistent geographic variation indicates region-specific drivers and intervention opportunities.
+## Data
+**CMS Public Use Files (PUFs)**
+- Medicare Physician & Other Practitioners PUF (2022, 2023)
+- Medicare Geographic Variation PUF (2014–2023)
 
-### Limitations
-- PUFs are aggregated and are not member-level claims; PMPM is approximate when beneficiary-months are not available.
-- Results reflect Medicare FFS and may not generalize directly to other payer populations.
+> Note: Raw CMS files are not included in this repo. Published artifacts use aggregated outputs and anonymized service identifiers.
 
-### Licensing / Compliance Note
-Raw physician PUF files and any CPT/HCPCS code fields remain local and are excluded from public artifacts. Public outputs use aggregated metrics and anonymized service identifiers (`Service_###`) and do not distribute CPT/HCPCS content.
+---
+
+## Approach (high level)
+- Loaded raw CMS PUFs into a local SQLite database (local-only).
+- Built a normalized metric layer and derived totals from available averages and volume fields.
+- Computed:
+  - Year-over-year totals (allowed spend, payments, service volume)
+  - Provider spend concentration curve (cumulative spend share by provider percentile)
+  - Service-level concentration and cost driver views using anonymized service IDs
+  - Geographic variation using standardized per-capita spending, 2014–2023 trends plus a 2023 map view
+- Exported **public-safe CSVs** to [`../data/public/`](../data/public/) for visualization and sharing.
+
+---
+
+## Key results (published outputs)
+- **Allowed spend increased ~4.8%** from 2022 to 2023 (≈ $113B → $118B) and service volume increased (≈ 2.52B → 2.65B).
+- **Provider concentration is high and increased YoY:**
+  - 2022: top 1% ≈ 28.3% | top 5% ≈ 48.8% | top 10% ≈ 60.9%
+  - 2023: top 1% ≈ 30.5% | top 5% ≈ 50.7% | top 10% ≈ 62.3%
+- **Service concentration is lower than provider concentration**, indicating provider-level behavior/distribution is a stronger driver than “service mix” alone:
+  - Top 10 anonymized services share of allowed: 2022 ≈ 31.1% | 2023 ≈ 29.7%
+- **Geographic variation remains large** after standardization, and state trends show persistent divergence across 2014–2023.
+
+---
+
+## Why this matters (medical economics lens)
+- High (and rising) concentration supports **provider-focused review**: outlier identification, targeted UM, and network strategy.
+- Lower service concentration suggests that spend is not dominated by only a handful of services; instead, **spend distribution across providers** is a key lever.
+- Persistent geographic variation supports **region-specific interventions** and deeper drilldowns (policy, practice patterns, access, population differences).
+
+---
+
+## Limitations
+- PUFs are aggregated; this is not member-level claims and does not support patient-level PMPM precision.
+- Results reflect Medicare FFS and may not generalize to other payer populations without adjustment.
+
+---
+
+## Licensing / compliance note
+Public outputs in this repo exclude CPT/HCPCS fields and do not publish restricted code content. Service identifiers are generalized (e.g., `SERVICE_###`) and only aggregated metrics are shared.
 
